@@ -25,7 +25,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         NSAttributedString.Key.strokeColor: UIColor.black,
         NSAttributedString.Key.foregroundColor: UIColor.white,
         NSAttributedString.Key.backgroundColor: UIColor(cgColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.75)),
-        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSAttributedString.Key.font: UIFont(name: Constants.textFieldFontFamily, size: 40)!,
         NSAttributedString.Key.strokeWidth: 2
     ]
     
@@ -35,14 +35,14 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         shareButton.isEnabled = false
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
-        topTextField.delegate = self
-        bottomTextField.delegate = self
-        
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
+        setupTextField(topTextField)
+        setupTextField(bottomTextField)
+    }
+    
+    func setupTextField(_ textfield: UITextField){
+        textfield.delegate = self
+        textfield.defaultTextAttributes = memeTextAttributes
+        textfield.textAlignment = .center
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,8 +66,9 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @objc func keyboardWillShow(_ notification: Notification){
-        view.frame.origin.y = 0
-        view.frame.origin.y -= getKeyboardHeight(notification) - (view.frame.height-bottomTextField.frame.maxY)
+        if bottomTextField.isEditing{
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
 
     @objc func keyboardWillHide(_ notification: Notification){
@@ -103,7 +104,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.text == "TOP" || textField.text == "BOTTOM" {
+        if textField.text == Constants.topTextFieldPlaceholder || textField.text == Constants.bottomTextFieldPlaceholder {
             textField.text = ""
         }
     }
