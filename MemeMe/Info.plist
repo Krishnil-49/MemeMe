@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We need permission for saving Meme Image to photos</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need to access your Photo Library to fetch pictures for memes.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>We need to access your Camera to take pictures for memes.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -21,11 +15,17 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need to access your Camera to take pictures for memes.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need permission for saving Meme Image to photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need to access your Photo Library to fetch pictures for memes.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

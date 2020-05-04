@@ -134,31 +134,29 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func shareButton(_ sender: UIBarButtonItem) {
+        let memedImage = generateMemedImage()
+        let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        self.saveMeme()
         
-        saveMeme()
+        // The next line enables sharing on iPad also
+        activityViewController.popoverPresentationController?.barButtonItem = (sender)
+        
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            
+        }
+        present(activityViewController, animated: true, completion: nil)
     }
     
     func saveMeme(){
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage())
         
-        let memedImage = meme.memedImage
-        let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        
-        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            if completed{
-                self.showCompletionAlert(with: "Success", and: "Meme shared successfully")
-            }
-        }
-        present(activityViewController, animated: true, completion: nil)
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
-    func showCompletionAlert(with title: String, and message: String){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let dismissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alertController.addAction(dismissAction)
-        
-        present(alertController, animated: true, completion: nil)
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
