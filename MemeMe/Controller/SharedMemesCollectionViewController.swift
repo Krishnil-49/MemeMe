@@ -38,6 +38,12 @@ class SharedMemesCollectionViewController: UICollectionViewController, UICollect
         cell.imageView.image = memes[indexPath.row].memedImage
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let memeDetailsViewController = MemeDetailsViewController()
+        memeDetailsViewController.memeImageView.image = memes[indexPath.row].memedImage
+        navigationController?.pushViewController(memeDetailsViewController, animated: true)
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let dimension = (collectionView.frame.width)/3

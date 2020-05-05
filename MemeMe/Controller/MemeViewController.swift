@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeViewController.swift
 //  MemeMe
 //
 //  Created by Krishnil Bhojani on 30/04/20.
@@ -22,12 +22,12 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var toolBar: UIToolbar!
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.strokeColor: UIColor.black,
-        NSAttributedString.Key.foregroundColor: UIColor.white,
-        NSAttributedString.Key.backgroundColor: UIColor(cgColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.75)),
-        NSAttributedString.Key.font: UIFont(name: Constants.textFieldFontFamily, size: 40)!,
-        NSAttributedString.Key.strokeWidth: 2
+      NSAttributedString.Key.strokeColor: UIColor.black,
+      NSAttributedString.Key.foregroundColor: UIColor.white,
+      NSAttributedString.Key.font: UIFont(name: Constants.textFieldFontFamily, size: 40)!,
+      NSAttributedString.Key.strokeWidth: -3.0
     ]
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @objc func keyboardWillShow(_ notification: Notification){
         if bottomTextField.isEditing{
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = getKeyboardHeight(notification) * (-1)
         }
     }
 
@@ -116,8 +116,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func generateMemedImage() -> UIImage{
         
         // to hide toolbar and navbar
-        toolBar.isHidden = true
-        navigationController?.navigationBar.isHidden = true
+        components(areHidden: true)
         
         // Render view to an Image
         UIGraphicsBeginImageContext(view.frame.size)
@@ -126,24 +125,32 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let memedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        //to show toolbar and navbar
-        toolBar.isHidden = false
-        navigationController?.navigationBar.isHidden = false
+        // to show toolbar and navbar
+        components(areHidden: false)
         
         return memedImage
+    }
+    
+    func components(areHidden bool: Bool){
+        toolBar.isHidden = bool
+        navigationController?.navigationBar.isHidden = bool
     }
     
     @IBAction func shareButton(_ sender: UIBarButtonItem) {
         let memedImage = generateMemedImage()
         let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        self.saveMeme()
         
         // The next line enables sharing on iPad also
         activityViewController.popoverPresentationController?.barButtonItem = (sender)
         
-        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            
+        activityViewController.completionWithItemsHandler = {
+            (activityType, completed, returnedItems, error) in
+            if completed {
+                self.saveMeme()
+                self.dismiss(animated: true, completion: nil)
+            }
         }
+        
         present(activityViewController, animated: true, completion: nil)
     }
     

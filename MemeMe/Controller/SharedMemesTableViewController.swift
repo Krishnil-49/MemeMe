@@ -41,4 +41,10 @@ class SharedMemesTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let memeDetailsViewController = MemeDetailsViewController()
+        memeDetailsViewController.memeImageView.image = memes[indexPath.row].memedImage
+        navigationController?.pushViewController(memeDetailsViewController, animated: true)
+    }
+    
 }

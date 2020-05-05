@@ -172,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4899" y="127"/>
+            <point key="canvasLocation" x="4884" y="127"/>
         </scene>
         <!--Collection View-->
         <scene sceneID="nmK-il-fQe">
@@ -199,6 +199,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EG6-tN-7He" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RGS-Rf-M5P">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -228,11 +229,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LtX-nZ-NRw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4001" y="127"/>
+            <point key="canvasLocation" x="3983" y="127"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KUr-zP-FNb"/>
+        <segue reference="qX8-8N-J0c"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera" catalog="system" width="128" height="96"/>
